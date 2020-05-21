@@ -30,11 +30,10 @@ public class BaseTest {
     @BeforeAll
     public static void setUp() {
 
-//        String browser = System.getProperty("browser");
         WebDriverManager.getInstance(DriverManagerType.CHROME).setup();
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
+//        driver.manage().window().maximize();
         wait = new WebDriverWait(driver, 12);
         action = new Actions(driver);
 

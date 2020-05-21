@@ -1,7 +1,9 @@
 package pages;
 
+import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,10 +12,10 @@ import testRunners.BaseTest;
 
 public class StartPage extends BaseTest {
 
-    @FindBy(css = "div[class = 'evnt-navigation-wrapper navbar-expand']>ul>li>a[href='/events']")
+    @FindBy(css = "a[class='nav-link'][href='/events']")
     public static WebElement EVENTS;
 
-    @FindBy(css = "a[class = 'nav-link'][href='/talks']")
+    @FindBy(css = "a[class='nav-link'][href='/talks']")
     public static WebElement TALKS_LIBRARY;
 
     @FindBy(css = "div.evnt-responsive-toggle-box")
@@ -21,9 +23,9 @@ public class StartPage extends BaseTest {
 
     @Step
     public EventListPage clickEvents() {
-        if(EVENTS.isDisplayed()) {
+        try {
             EVENTS.click();
-        }else {
+        }catch(NoSuchElementException nse) {
             MAIN_MENU.click();
             EVENTS.click();
         }
@@ -32,9 +34,9 @@ public class StartPage extends BaseTest {
 
     @Step
     public TalksLibraryPage clickTalks() {
-        if(TALKS_LIBRARY.isDisplayed()) {
+        try {
             TALKS_LIBRARY.click();
-        }else {
+        }catch(NoSuchElementException nse)  {
             MAIN_MENU.click();
             TALKS_LIBRARY.click();
         }
