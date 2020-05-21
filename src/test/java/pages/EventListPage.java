@@ -77,16 +77,6 @@ public class EventListPage extends StartPage {
         return SAVE_EVENT_TO_CALENDAR_LIST.size() == Integer.parseInt(UPCOMING_EVENTS_COUNT.getText());
     }
 
-//    public boolean doesEveryhaveAllInfos() {
-//        boolean locations = EVENT_LOCATIONS.size() == SAVE_EVENT_TO_CALENDAR_LIST.size();
-//        boolean languages = EVENT_LANGUAGES.size() == SAVE_EVENT_TO_CALENDAR_LIST.size();
-//        boolean names = EVENT_NAMES.size() == SAVE_EVENT_TO_CALENDAR_LIST.size();
-//
-//        boolean dates = EVENT_DATES.size() == SAVE_EVENT_TO_CALENDAR_LIST.size();
-//        boolean attendInfos = ATTEND_INFO.size() == SAVE_EVENT_TO_CALENDAR_LIST.size();
-//
-//    }
-
     @Step
     public void checkEventCardsInfo() {
         for (int i = 0; i < EVENT_CARDS.size(); i++) {
@@ -121,7 +111,7 @@ public class EventListPage extends StartPage {
             LocalDate endOfTheWeek = eventDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
 
             Assertions.assertTrue((eventDate.isAfter(checkDate) || eventDate.isEqual(checkDate)) && eventDate.isBefore(endOfTheWeek),
-                    eventDate + "is past or is not within the week");
+                    eventDate + " is past or is not within the week");
         }
     }
 

@@ -1,10 +1,7 @@
 package pages;
 
-import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -15,8 +12,8 @@ public class StartPage extends BaseTest {
     @FindBy(css = "a[class='nav-link'][href='/events']")
     public static WebElement EVENTS;
 
-    @FindBy(css = "a[class='nav-link'][href='/talks']")
-    public static WebElement TALKS_LIBRARY;
+    @FindBy(css = "a[class='nav-link'][href^='/video']")
+    public static WebElement VIDEOS_LIBRARY; //Ex Talks library
 
     @FindBy(css = "div.evnt-responsive-toggle-box")
     public static WebElement MAIN_MENU;
@@ -33,13 +30,13 @@ public class StartPage extends BaseTest {
     }
 
     @Step
-    public TalksLibraryPage clickTalks() {
+    public VideosPage clickTalks() {
         try {
-            TALKS_LIBRARY.click();
+            VIDEOS_LIBRARY.click();
         }catch(NoSuchElementException nse)  {
             MAIN_MENU.click();
-            TALKS_LIBRARY.click();
+            VIDEOS_LIBRARY.click();
         }
-        return talks = PageFactory.initElements(driver, TalksLibraryPage.class);
+        return talks = PageFactory.initElements(driver, VideosPage.class);
     }
 }

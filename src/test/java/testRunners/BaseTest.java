@@ -25,7 +25,7 @@ public class BaseTest {
     protected EventListPage eventListPage;
     protected Event event;
     protected ReportPage report;
-    protected TalksLibraryPage talks;
+    protected VideosPage talks;
 
     @BeforeAll
     public static void setUp() {
@@ -43,9 +43,7 @@ public class BaseTest {
     @BeforeEach
     public void initPages() {
     startPage = PageFactory.initElements(driver, StartPage.class);
-//    eventListPage = PageFactory.initElements(driver, EventListPage.class);
     report = PageFactory.initElements(driver, ReportPage.class);
-//    talks = PageFactory.initElements(driver, TalksLibraryPage.class);
 
     driver.manage().deleteAllCookies();
     }
