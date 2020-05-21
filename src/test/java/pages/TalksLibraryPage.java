@@ -2,15 +2,10 @@ package pages;
 
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import testRunners.BaseTest;
 
 import java.time.Duration;
 import java.util.List;
@@ -18,7 +13,10 @@ import java.util.List;
 public class TalksLibraryPage extends StartPage {
 
     @FindBy(css = "div[class='evnt-toggle-filters-button evnt-button btn']")
-    public static WebElement MORE_ELEMENTS_BTN;
+    public static WebElement MORE_FILTERS_BTN;
+
+    @FindBy(css ="div[class='evnt-show-filters-button evnt-button btn']")
+    public static WebElement MORE_FILTERS_BTN_SMALL_SCREEN;
 
     @FindBy(id="filter_category")
     public static WebElement CATEGORY_FILTER;
@@ -49,7 +47,11 @@ public class TalksLibraryPage extends StartPage {
 
     @Step
     public void selectFilters() {
-        MORE_ELEMENTS_BTN.click();
+        try {
+            MORE_FILTERS_BTN.click();
+        }catch(NoSuchElementException nse) {
+            MORE_FILTERS_BTN_SMALL_SCREEN.click();
+        }
         CATEGORY_FILTER.click();
         DESIGN_CATEGORY_VALUE.click();
         LOCATION_FILTER.click();
