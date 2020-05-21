@@ -17,7 +17,7 @@ public class TestRunner extends BaseTest{
     public void testOne() {
 
         eventListPage = startPage.clickEvents();
-        Assertions.assertTrue(eventListPage.checkCountOfEventCards(UPCOMING_EVENTS_COUNT));
+        Assertions.assertTrue(eventListPage.checkCountOfEventCards(UPCOMING_EVENTS_COUNT), "Count of upcoming events is not equal to the number on the counter");
     }
 
     @Test
