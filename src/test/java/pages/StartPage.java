@@ -17,7 +17,7 @@ public class StartPage extends BaseTest {
     public static WebElement TALKS_LIBRARY;
 
     @FindBy(css = "div.evnt-responsive-toggle-box")
-    publc static WebElement MAIN_MENU;
+    public static WebElement MAIN_MENU;
 
     @Step
     public EventListPage clickEvents() {
