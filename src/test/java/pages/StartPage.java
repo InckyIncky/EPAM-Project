@@ -16,15 +16,28 @@ public class StartPage extends BaseTest {
     @FindBy(css = "a[class = 'nav-link'][href='/talks']")
     public static WebElement TALKS_LIBRARY;
 
+    @FindBy(css = "div.evnt-responsive-toggle-box")
+    publc static WebElement MAIN_MENU;
+
     @Step
     public EventListPage clickEvents() {
-        EVENTS.click();
+        if(EVENTS.isDisplayed()) {
+            EVENTS.click();
+        }else {
+            MAIN_MENU.click();
+            EVENTS.click();
+        }
         return eventListPage = PageFactory.initElements(driver, EventListPage.class);
     }
 
     @Step
     public TalksLibraryPage clickTalks() {
-        TALKS_LIBRARY.click();
+        if(TALKS_LIBRARY.isDisplayed()) {
+            TALKS_LIBRARY.click();
+        }else {
+            MAIN_MENU.click();
+            TALKS_LIBRARY.click();
+        }
         return talks = PageFactory.initElements(driver, TalksLibraryPage.class);
     }
 }
