@@ -34,14 +34,14 @@ public class Event extends BaseTest {
 
     @Step
     public void checkEventPageContents() {
-        Assertions.assertTrue(EVENT_PAGE_HEADER.isDisplayed());
-        Assertions.assertTrue(REGISTRATION_BTN.isDisplayed());
-        Assertions.assertTrue(EVENTS_NAME.isDisplayed());
+        Assertions.assertTrue(EVENT_PAGE_HEADER.isDisplayed(), "Event page header is not displayed");
+        Assertions.assertTrue(REGISTRATION_BTN.isDisplayed(), "registration button is not displayed");
+        Assertions.assertTrue(EVENTS_NAME.isDisplayed(), "Events name is not displayed");
         for (WebElement we : DATE_LOCATION_ADDITIONAL_INFO) {
-            Assertions.assertTrue(we.isDisplayed());
+            Assertions.assertTrue(we.isDisplayed(), "Events date is not displayed");
         }
         for (WebElement we : EVENT_PROGRAM) {
-            Assertions.assertTrue(we.isDisplayed());
+            Assertions.assertTrue(we.isDisplayed(), "Event program is not displayed");
         }
     }
 }

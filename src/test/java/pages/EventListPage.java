@@ -58,22 +58,22 @@ public class EventListPage extends StartPage {
     @FindBy(xpath = "//div[@class='evnt-cards-container'][1]//span[@class='date']")
     public static List<WebElement> THIS_WEEKS_EVENT_DATES;
 
-    @FindBy(css="a[class='evnt-tab-link nav-link active']")
+    @FindBy(css = "a[class='evnt-tab-link nav-link active']")
     public static WebElement PAST_EVENTS_BTN;
 
-    @FindBy(css="div[class='evnt-dates-cell dates']>p>span[class='status free-attend']")
+    @FindBy(css = "div[class='evnt-dates-cell dates']>p>span[class='status free-attend']")
     public static WebElement PAST_EVENTS_COUNT;
 
-    @FindBy(id="filter_location")
+    @FindBy(id = "filter_location")
     public static WebElement LOCATION_DROPDOWN;
 
-    @FindBy(css="div[data-group='Canada']")
+    @FindBy(css = "div[data-group='Canada']")
     public static WebElement CANADA;
 
     @Step
     public boolean checkCountOfEventCards(WebElement UPCOMING_OR_PAST_EVENTS) {
-        System.out.println(EVENT_CARDS.size());
-        System.out.println(UPCOMING_OR_PAST_EVENTS.getText());
+        logger.info(EVENT_CARDS.size());
+        logger.info(UPCOMING_OR_PAST_EVENTS.getText());
         return SAVE_EVENT_TO_CALENDAR_LIST.size() == Integer.parseInt(UPCOMING_EVENTS_COUNT.getText());
     }
 
@@ -109,7 +109,7 @@ public class EventListPage extends StartPage {
             LocalDate eventDate = LocalDate.parse(dateOfEvent, form);
             LocalDate checkDate = LocalDate.now();
             LocalDate endOfTheWeek = eventDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
-
+            logger.info("Events date: " + eventDate + ", current date: " + checkDate + ", week's end date: " + endOfTheWeek);
             Assertions.assertTrue((eventDate.isAfter(checkDate) || eventDate.isEqual(checkDate)) && eventDate.isBefore(endOfTheWeek),
                     eventDate + " is past or is not within the week");
         }
@@ -118,17 +118,20 @@ public class EventListPage extends StartPage {
     @Step
     public void showPastEvents() {
         PAST_EVENTS_BTN.click();
+        logger.info("Past events displayed");
     }
 
     @Step
     public void selectLocation() {
         LOCATION_DROPDOWN.click();
         CANADA.click();
+        logger.info("Location selected");
     }
 
     @Step
     public Event openEventDetails(int cardsNumber) {
         EVENT_CARDS.get(cardsNumber).click();
+        logger.info(EVENT_CARDS.get(cardsNumber).getAttribute("value") + "Event is opened");
         Event eventPage;
         return eventPage = PageFactory.initElements(driver, Event.class);
     }

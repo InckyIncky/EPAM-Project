@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.time.Duration;
 import java.util.List;
@@ -94,8 +93,6 @@ public class VideosPage extends StartPage {
     @Step
     public void checkIfCardsCorrespondFilters() {
         for (WebElement reportCard : REPORT_CARD) {
-//            wait.ignoring(StaleElementReferenceException.class).
-//                    until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.evnt-card-table")));
             reportCard.click();
             report.checkReportsParams();
         }

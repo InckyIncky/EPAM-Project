@@ -20,19 +20,19 @@ public class MyTestWatcher extends BaseTest implements TestWatcher {
     @Override
     public void testSuccessful(ExtensionContext context) {
         screenShot();
-        System.out.println("Watcher says: Successful!");
+        logger.info("Watcher says: Successful!");
     }
 
     @Override
     public void testAborted(ExtensionContext context, Throwable cause) {
         screenShot();
-        System.out.println("Watcher says: Aborted!");
+        logger.info("Watcher says: Aborted!");
     }
 
     @Override
     public void testFailed(ExtensionContext context, Throwable cause) {
         screenShot();
-        System.out.println("Watcher says: Failed!");
+        logger.info("Watcher says: Failed!");
     }
 
     @Attachment
@@ -40,7 +40,7 @@ public class MyTestWatcher extends BaseTest implements TestWatcher {
 
     public void screenShot() {
         if(driver == null) {
-            System.out.println("No driver defined");
+            logger.info("No driver defined");
             return;
         }
         saveScreenshot(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES));
