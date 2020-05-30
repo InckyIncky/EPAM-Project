@@ -11,14 +11,14 @@ node {
             stage('chrome') {
                 withMaven(maven: 'maven 3.6.3') {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    bat label: '', script: 'mvn clean test -Dbrowser='chrome''
+                    bat label: '', script: 'mvn clean test -Dbrowser=chrome'
                     }
                 }
             }
             stage('firefox') {
             withMaven(maven: 'maven 3.6.3') {
                  catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                      bat label: '', script: 'mvn clean test -Dbrowser='Firefox''
+                      bat label: '', script: 'mvn clean test -Dbrowser=Firefox'
                       }
                   }
             }
