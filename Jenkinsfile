@@ -7,23 +7,21 @@ node {
         userRemoteConfigs: [[credentialsId: '497e439b-9460-4ed0-a22a-ded60c5634c4', url: 'https://github.com/InckyIncky/EPAM-Project.git']]])      // Get the Maven tool.
    }
    stage('Build') {
-        parallel {
-            stage('chrome') {
+        parallel ChromeTests: {
                 withMaven(maven: 'maven 3.6.3') {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     bat label: '', script: 'mvn clean test -Dbrowser=chrome'
                     }
-                }
-            }
-            stage('firefox') {
+                },
+
+            FirefoxTests:  {
             withMaven(maven: 'maven 3.6.3') {
                  catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                       bat label: '', script: 'mvn clean test -Dbrowser=Firefox'
                       }
-                  }
+                 }
             }
         }
-   }
    stage('Results') {
       //junit '**/target/surefire-reports/*.xml'
       
