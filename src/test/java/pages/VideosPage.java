@@ -9,6 +9,9 @@ import org.openqa.selenium.support.FindBy;
 import java.time.Duration;
 import java.util.List;
 
+import static pages.EventListPage.LOCATION_DROPDOWN;
+import static pages.EventListPage.selectCountry;
+
 public class VideosPage extends StartPage {
 
     @FindBy(css = "div[class='evnt-toggle-filters-button evnt-button btn']")
@@ -23,12 +26,6 @@ public class VideosPage extends StartPage {
     @FindBy(css = "label[data-value='Design']")
     public static WebElement DESIGN_CATEGORY_VALUE;
 
-    @FindBy(id = "filter_location")
-    public static WebElement LOCATION_FILTER;
-
-    @FindBy(css = "label[data-value='Belarus']")
-    public static WebElement BELARUS_LOCATION_VALUE;
-
     @FindBy(id = "filter_language")
     public static WebElement LANGUAGE_FILTER;
 
@@ -38,7 +35,7 @@ public class VideosPage extends StartPage {
     @FindBy(css = "div.evnt-talks-column cell-6")
     public static List<WebElement> REPORT_CARD;
 
-    @FindBy(css = "input[class='evnt-text-fields form-control evnt-search']")
+    @FindBy(css = "input[placeholder='Search by Talk Name']")
     public static WebElement KEY_WORD_SEARCH;
 
     @FindBy(css = "div.evnt-talk-name span")
@@ -69,13 +66,14 @@ public class VideosPage extends StartPage {
         }
         DESIGN_CATEGORY_VALUE.click();
         try {
-            LOCATION_FILTER.click();
+            LOCATION_DROPDOWN.click();
         }catch (ElementClickInterceptedException ee){
             FILTERS_DIALOGUE_CLOSE.click();
             MORE_FILTERS_BTN_SMALL_SCREEN.click();
-            LOCATION_FILTER.click();
+            LOCATION_DROPDOWN.click();
         }
-        BELARUS_LOCATION_VALUE.click();
+//        BELARUS_LOCATION_VALUE.click();
+        selectCountry("Belarus");
         try {
             LANGUAGE_FILTER.click();
         }catch (ElementClickInterceptedException ee){
@@ -100,7 +98,9 @@ public class VideosPage extends StartPage {
 
     @Step
     public void searchByKeyword(String keyword) {
+
         KEY_WORD_SEARCH.sendKeys(keyword);
+        logger.info("Keyword search started");
     }
 
     @Step

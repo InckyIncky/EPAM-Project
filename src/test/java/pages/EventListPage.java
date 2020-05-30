@@ -9,15 +9,13 @@ import java.util.Locale;
 
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import testRunners.BaseTest;
 
 public class EventListPage extends StartPage {
-
-    @FindBy(css = "span[class='evnt-tab-counter evnt-label small white']")
-    public static WebElement UPCOMING_EVENTS_COUNT;
 
     @FindBy(css = "div[class*='card size']")
     public static List<WebElement> EVENT_CARDS;
@@ -58,11 +56,16 @@ public class EventListPage extends StartPage {
     @FindBy(xpath = "//div[@class='evnt-cards-container'][1]//span[@class='date']")
     public static List<WebElement> THIS_WEEKS_EVENT_DATES;
 
-    @FindBy(css = "a[class='evnt-tab-link nav-link active']")
+    @FindBy(css = "ul[class='evnt-tabs-list nav nav-tabs']>li:nth-child(2)")
     public static WebElement PAST_EVENTS_BTN;
 
-    @FindBy(css = "div[class='evnt-dates-cell dates']>p>span[class='status free-attend']")
+    @FindBy(xpath = "//span[@class='evnt-tab-counter evnt-label small white'][2]")
     public static WebElement PAST_EVENTS_COUNT;
+
+    //Array with two Webelements, first - Upcoming events counter, second - past events counter
+    @FindBy(css = "span[class='evnt-tab-counter evnt-label small white']")
+    public static List<WebElement> EVENT_COUNTER;
+
 
     @FindBy(id = "filter_location")
     public static WebElement LOCATION_DROPDOWN;
@@ -70,11 +73,14 @@ public class EventListPage extends StartPage {
     @FindBy(css = "div[data-group='Canada']")
     public static WebElement CANADA;
 
+    public static void selectCountry(String country) {
+        driver.findElement(By.cssSelector("label[data-value='" + country + "']")).click();
+    }
+
     @Step
     public boolean checkCountOfEventCards(WebElement UPCOMING_OR_PAST_EVENTS) {
-        logger.info(EVENT_CARDS.size());
-        logger.info(UPCOMING_OR_PAST_EVENTS.getText());
-        return SAVE_EVENT_TO_CALENDAR_LIST.size() == Integer.parseInt(UPCOMING_EVENTS_COUNT.getText());
+        logger.info("Count of event cards on the page is " + EVENT_CARDS.size() + ", the numer on the counter is " + UPCOMING_OR_PAST_EVENTS.getText());
+        return SAVE_EVENT_TO_CALENDAR_LIST.size() == Integer.parseInt(UPCOMING_OR_PAST_EVENTS.getText());
     }
 
     @Step
@@ -124,14 +130,15 @@ public class EventListPage extends StartPage {
     @Step
     public void selectLocation() {
         LOCATION_DROPDOWN.click();
-        CANADA.click();
+        selectCountry("Canada");
         logger.info("Location selected");
     }
 
     @Step
     public Event openEventDetails(int cardsNumber) {
+        String eventCard = EVENT_CARDS.get(cardsNumber).getAttribute("value");
         EVENT_CARDS.get(cardsNumber).click();
-        logger.info(EVENT_CARDS.get(cardsNumber).getAttribute("value") + "Event is opened");
+        logger.info(eventCard + " Event is opened");
         Event eventPage;
         return eventPage = PageFactory.initElements(driver, Event.class);
     }

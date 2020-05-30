@@ -6,8 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import util.MyTestWatcher;
 
-import static pages.EventListPage.UPCOMING_EVENTS_COUNT;
-import static pages.EventListPage.PAST_EVENTS_COUNT;
+import static pages.EventListPage.*;
 
 @ExtendWith(MyTestWatcher.class)
 public class TestRunner extends BaseTest{
@@ -18,7 +17,7 @@ public class TestRunner extends BaseTest{
         logger.info("Test one started");
 
         eventListPage = startPage.clickEvents();
-        Assertions.assertTrue(eventListPage.checkCountOfEventCards(UPCOMING_EVENTS_COUNT), "Count of upcoming events is not equal to the number on the counter");
+        Assertions.assertTrue(eventListPage.checkCountOfEventCards(EVENT_COUNTER.get(0)), "Count of upcoming events is not equal to the number on the counter");
     }
 
     @Test
@@ -39,14 +38,16 @@ public class TestRunner extends BaseTest{
     }
 
     @Test
-    @Description("Past events presence and count")
+    @Description("Past events presence and count in Canada")
     public void testFour() {
         logger.info("Test four started");
 
         eventListPage = startPage.clickEvents();
-        eventListPage.showPastEvents();
         eventListPage.selectLocation();
-        Assertions.assertTrue(eventListPage.checkCountOfEventCards(PAST_EVENTS_COUNT));
+        eventListPage.showPastEvents();
+        Assertions.assertTrue(eventListPage.checkCountOfEventCards(EVENT_COUNTER.get(1)), "Event cards count is " +
+                "not similar to counter. " + EVENT_CARDS.size() + " - is count of cards, " + EVENT_COUNTER.get(1).getText()
+        + " - is a number on the counter");
     }
 
     @Test
@@ -55,7 +56,7 @@ public class TestRunner extends BaseTest{
         logger.info("Test five started");
 
         eventListPage = startPage.clickEvents();
-        event = eventListPage.openEventDetails(4);
+        event = eventListPage.openEventDetails(2);
         event.checkEventPageContents();
     }
 
